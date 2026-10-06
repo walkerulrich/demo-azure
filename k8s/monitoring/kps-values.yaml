@@ -1,0 +1,30 @@
+# kube-prometheus-stack : Prometheus + Grafana (+ operateur, kube-state-metrics, node-exporter)
+alertmanager:
+  enabled: false
+
+# Sur AKS le plan de controle est gere par Azure : ces cibles ne sont pas joignables
+kubeEtcd:
+  enabled: false
+kubeControllerManager:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeProxy:
+  enabled: false
+
+prometheus:
+  prometheusSpec:
+    retention: 2d
+    # prendre en compte les ServiceMonitor de tous les namespaces
+    serviceMonitorSelectorNilUsesHelmValues: false
+    resources:
+      requests:
+        cpu: 200m
+        memory: 512Mi
+
+grafana:
+  additionalDataSources:
+    - name: Jaeger
+      type: jaeger
+      access: proxy
+      url: http://jaeger.monitoring.svc.cluster.local:16686

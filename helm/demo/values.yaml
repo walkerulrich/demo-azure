@@ -1,0 +1,14 @@
+replicaCount: 2
+
+image:
+  repository: ""   # fourni par le pipeline : <acr>.azurecr.io/demo
+  tag: ""          # fourni par le pipeline : <numero de build>-<commit>
+
+tracingEndpoint: http://jaeger.monitoring.svc.cluster.local:4318/v1/traces
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    memory: 768Mi
