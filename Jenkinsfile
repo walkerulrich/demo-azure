@@ -3,7 +3,7 @@ pipeline {
   environment {
     ACR_NAME    = 'acrdemoa8187c8a'
     IMAGE       = "${ACR_NAME}.azurecr.io/demo"
-    SONAR_TOKEN = credentials('squ_c01e14c9c3aefe9be7fab7760db22878ba278850')
+    SONAR_TOKEN = credentials('sonar-token')
   }
   stages {
     stage('Build & tests') {
