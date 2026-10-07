@@ -1,0 +1,15 @@
+- hosts: sonar
+  become: true
+  tasks:
+    - name: Docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: true
+
+    - name: Reglage systeme exige par SonarQube
+      shell: echo 'vm.max_map_count=524288' > /etc/sysctl.d/99-sonarqube.conf && sysctl --system
+      args: { creates: /etc/sysctl.d/99-sonarqube.conf }
+
+    - name: SonarQube
+      shell: docker inspect sonarqube >/dev/null 2>&1 || docker run -d --name sonarqube --restart unless-stopped -p 9000:9000 sonarqube:community

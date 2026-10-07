@@ -29,7 +29,7 @@ resource "azurerm_network_security_group" "nsg" {
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_ranges    = ["22", "8080"]
+    destination_port_ranges    = ["22", "8080", "9000"]
     source_address_prefix      = var.my_ip
     destination_address_prefix = "*"
   }
